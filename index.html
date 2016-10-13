@@ -11,7 +11,7 @@
 
 <body class="container">
     <h1 class="text-center">Negociações</h1>
-    <form class="form" onsubmit="negociacaoController.adiciona()">
+    <form class="form" onsubmit="negociacaoController.adiciona(event)">
         <div class="form-group">brow
             <label for="data">Data</label>
             <input type="date" id="data" class="form-control" required autofocus/>
@@ -49,8 +49,9 @@
         </tbody>
     </table>
     <script type="text/javascript" src="js/app/models/Negociacao.js"></script>
-    <script type="text/javascript" src="js/app/controllers/NegociacaoController.js"></script>
     <script type="text/javascript" src="js/app/services/NegociacaoService.js"></script>
+    <script type="text/javascript" src="js/app/services/HttpService.js"></script>
+    <script type="text/javascript" src="js/app/controllers/NegociacaoController.js"></script>
 
 </body>
 
