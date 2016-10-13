@@ -13,6 +13,7 @@ class HttpService {
                 }
             };
             xhr.send();
+        
         })
     }
 }
