@@ -5,6 +5,9 @@ class NegociacaoController{
 		this._inputQuantidade = $("#quantidade");
 		this._inputValor = $("#valor");
 		this._listaNegociacoes = new ListaNegociacoes();
+		
+		this._negociacoesView = new NegociacoesView($('#negociacoesView'));
+		this._negociacoesView.update();
 	}
 
 	adiciona(event){
@@ -21,7 +24,7 @@ class NegociacaoController{
 		this._limpaFormulario();
 	}
 	
-    _linpaFormulario(){
+    _limpaFormulario(){
 	  this._inputData.value="";
 	  this._inputQuantidade.value=0;
 	  this._inputValor.value=0.0;
@@ -29,6 +32,7 @@ class NegociacaoController{
     }
 
 	negociacoes(){
+		
 		let negociacaoService = new NegociacaoService();
 
         Promise.all([
