@@ -36,22 +36,17 @@
     </div>
     <br>
     <br>
-    <table class="table table-hover table-bordered">
-        <thead>
-            <tr>
-                <th>DATA</th>
-                <th>QUANTIDADE</th>
-                <th>VALOR</th>
-                <th>VOLUME</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+  <div id="listaNegociacoes"></div>
     <script type="text/javascript" src="js/app/models/Negociacao.js"></script>
     <script type="text/javascript" src="js/app/services/NegociacaoService.js"></script>
     <script type="text/javascript" src="js/app/services/HttpService.js"></script>
     <script type="text/javascript" src="js/app/controllers/NegociacaoController.js"></script>
+  <script type="text/javascript" src="js/app/models/ListaNegociacoes.js"></script>
+  <script type="text/javascript" src="js/app/helpers/DataHelper.js"></script>
+  <script type="text/javascript" src="js/app/views/NegociacaoView.js"></script>
+  <script>
+	let negociacaoController = new NegociacaoController();
+  </script>
 
 </body>
 
