@@ -43,7 +43,10 @@ class NegociacaoController{
         ])
         .then(negociacoes => negociacoes
         	.reduce((arrayAchatado, array) => arrayAchatado.concat(array))
-        	.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao)))
-		.catch(erro => console.log(erro));
+        	.forEach(negociacao => {
+				this._listaNegociacoes.adiciona(negociacao);
+				this._negociacoesView.update(this._listaNegociacoes);
+				}))
+		.catch(erro => alert(erro));
 	}
 }
