@@ -1,15 +1,14 @@
 class NegociacaoController{
 	constructor(){
-		/**Atribuindo a funcao do querySelecto a varuaval dolar
-*/
+		/*Atribuindo a funcao do querySelecto a varuaval dolar*/
 		let $ = document.querySelector.bind(document);
 		this._inputData =$("#data");
 		this._inputQuantidade = $("#quantidade");
 		this._inputValor = $("#valor");
 		let self = this;
-		/**Passando uma arraw functin que ira carregar as mudancas
-		*  na view toda vez que for adicionado ou removido uma negociacao
-		*/
+		/*Passando uma arraw functin que ira carregar as mudancas
+		 *na view toda vez que for adicionado ou removido uma negociacao
+		 */
 		this._listaNegociacoes = new Proxy(new ListaNegociacoes(),
 		{
 			get(target, prop, reciver){
@@ -25,9 +24,9 @@ class NegociacaoController{
 		}
 		);
 		
-		/**Instanciando a classe NegociacoesView e uma MenssagemView passando como parametro o 
-		*  elemento que recebera o template string respectivo de cada uma.
-		*/
+		/*Instanciando a classe NegociacoesView e uma MenssagemView passando como parametro o 
+		 *elemento que recebera o template string respectivo de cada uma.
+		 */
 		this._negociacoesView = new NegociacoesView($('#negociacoesView'));
 		this._negociacoesView.update(this._listaNegociacoes);
 		this._menssagemView = new MenssagemView($('#menssagemView'));
@@ -35,17 +34,17 @@ class NegociacaoController{
 	}
 
 	adiciona(event){
-		/** Desbilita o submit do botao Incluir*/
+		/*Desbilita o submit do botao Incluir*/
 		event.preventDefault();
 	
-		/**criando uma instacia da classe Negociacao e 
-		*  passando os paremetros de uma nova negociacao
-		*/
+		/*criando uma instacia da classe Negociacao e 
+		 *passando os paremetros de uma nova negociacao
+		 */
 		let negociacao = new Negociacao(
 			DataHelper.textoParaData(this._inputData.value),
 			this._inputQuantidade.value,
 			this._inputValor.value
-		)
+		);
 		
 		this._listaNegociacoes.adiciona(negociacao);	
 		this._limpaFormulario();
@@ -63,9 +62,9 @@ class NegociacaoController{
 	negociacoes(){
 		
 		let negociacaoService = new NegociacaoService();
-        /** Executa  Promises em sequencia, so executa a seguinte caso
-		*   a anterior tenha sido finalizada 
-		*/
+        /*Executa  Promises em sequencia, so executa a seguinte caso
+		 *a anterior tenha sido finalizada 
+		 */
         Promise.all([
 					negociacaoService.negociacoesSemanaAtual(),
 					negociacaoService.negociacoesSemanaAnterior(),
