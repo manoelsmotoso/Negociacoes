@@ -6,11 +6,24 @@ class NegociacaoController{
 		this._inputData =$("#data");
 		this._inputQuantidade = $("#quantidade");
 		this._inputValor = $("#valor");
-		
+		let self = this;
 		/**Passando uma arraw functin que ira carregar as mudancas
 		*  na view toda vez que for adicionado ou removido uma negociacao
 		*/
-		this._listaNegociacoes = new ListaNegociacoes(model => this._negociacoesView.update(model));
+		this._listaNegociacoes = new Proxy(new ListaNegociacoes(),
+		{
+			get(target, prop, reciver){
+				if(['adiciona','apagar'].includes(prop) && typeof(target[prop]) == typeof(Function)){
+					return function(){
+						Reflect.apply(target[prop], target, arguments);
+						self._negociacoesView.update(target);
+					};
+				}
+				
+				return Reflect.get(target, prop, reciver);
+			}
+		}
+		);
 		
 		/**Instanciando a classe NegociacoesView e uma MenssagemView passando como parametro o 
 		*  elemento que recebera o template string respectivo de cada uma.
