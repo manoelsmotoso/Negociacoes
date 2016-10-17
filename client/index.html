@@ -32,7 +32,7 @@
             <button class="btn btn-primary text-center" type="button" onclick="negociacaoController.negociacoes()">
                 Importar Negociações
             </button>
-		  <button class="btn btn-primary text-center" type="button" onclick="negociacaoController.apagar()">
+		    <button class="btn btn-primary text-center" type="button" onclick="negociacaoController.apagar()">
                 Apagar
             </button>
         </div>
@@ -41,13 +41,14 @@
         <div id="negociacoesView"></div>
 
         <script type="text/javascript" src="js/app/helpers/DataHelper.js"></script>
-        <script type="text/javascript" src="js/app/helpers/Bind.js"></script>
+        <script type="text/javascript" src="js/app/helpers/Bind.js"></script>    
         <script type="text/javascript" src="js/app/models/Negociacao.js"></script>        
         <script type="text/javascript" src="js/app/models/Mensagem.js"></script>
         <script type="text/javascript" src="js/app/models/ListaNegociacoes.js"></script>
         <script type="text/javascript" src="js/app/services/NegociacaoService.js"></script>
         <script type="text/javascript" src="js/app/services/HttpService.js"></script>
         <script type="text/javascript" src="js/app/services/ProxyFactory.js"></script>
+        <script type="text/javascript" src="js/app/services/ConnectionFactory.js"></script>
         <script type="text/javascript" src="js/app/controllers/NegociacaoController.js"></script>
         <script type="text/javascript" src="js/app/views/View.js"></script>
         <script type="text/javascript" src="js/app/views/NegociacoesView.js"></script>
@@ -55,5 +56,49 @@
         <script>
         let negociacaoController = new NegociacaoController();
         </script>
+
+        <script>
+/*
+                var connection;
+                var openRequest = window.indexedDB.open('aluraframe', 2);
+                openRequest.onupgradeneeded = e => {
+                    let myConnection = e.target.result;
+                    if(myConnection.objectStoreNames.contains('negociacoes')){
+                        myConnection.deleteObjectStore('negociacoes');
+                    }
+                    myConnection.createObjectStore('negociacoes',{autoIncrement:true});
+                    console.log('IndexdedDB criado ou atualizado');
+                };
+                openRequest.onsuccess = e => {
+                    connection = e.target.result;
+                    console.log('IndexdedDB instanciado com sucesso');
+                    adiciona();
+                };
+
+                openRequest.onerror = e => {
+                    console.log(e.target.error);
+                };
+
+                function adiciona(){
+                        let transaction = connection.transaction(['negociacoes'],'readwrite');
+
+                        let store = transaction.objectStore('negociacoes');
+
+                        let negociacao = new Negociacao(new Date(),2,50);
+
+                        let request = store.add(negociacao);
+
+                        request.onsuccess = (e) =>{
+                            console.log("Negociacao adicionada com sucesso.")
+                        }
+
+                        request.onerror = (e) =>{
+                            console.log("Erro ao adicionar negociacao."+e.target.error)
+                        }
+                    }
+*/
+
+        </script>
+
     </body>
 </html>

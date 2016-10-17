@@ -9,7 +9,7 @@ class NegociacaoController {
         this._listaNegociacoes = new Bind(
         	new ListaNegociacoes(),
         	new NegociacoesView($('#negociacoesView')),
-        	 'adiciona', 'apagar');
+        	 'adiciona', 'apagar', 'ordena', 'inverteOrdem');
 
         /**/
         this._mensagem = new Bind(new Mensagem(''),
@@ -33,7 +33,8 @@ class NegociacaoController {
             this._mensagem.texto = "Negociação adicionada com sucesso.";
             this._limpaFormulario();
         }
-        /*Limpa os campos do formulario a cada nova negociaçâo incluida */
+        
+    /*Limpa os campos do formulario a cada nova negociaçâo incluida */
     _limpaFormulario() {
 
         this._inputData.value = "";
@@ -63,9 +64,20 @@ class NegociacaoController {
             )
             .catch(erro => this._mensagem.texto = erro);
     }
+
     apagar() {
 
         this._listaNegociacoes.apagar();
         this._mensagem.texto = "Negociacoes apagadas com sucesso.";
+    }
+
+    ordena(coluna) {
+        
+        if(this._ordemAtual == coluna) {
+            this._listaNegociacoes.inverteOrdem(); 
+        } else {
+            this._listaNegociacoes.ordena((p, s) => p[coluna] - s[coluna]);    
+        }
+        this._ordemAtual = coluna;    
     }
 }
