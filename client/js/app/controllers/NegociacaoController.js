@@ -4,31 +4,17 @@ class NegociacaoController {
         let $ = document.querySelector.bind(document);
         this._inputData = $("#data");
         this._inputQuantidade = $("#quantidade");
-        this._inputValor = $("#valor");
-        let self = this;
+        this._inputValor = $("#valor");     
+
+        this._listaNegociacoes = new Bind(
+        	new ListaNegociacoes(),
+        	new NegociacoesView($('#negociacoesView')),
+        	 'adiciona', 'apagar');
 
         /**/
-    
-        this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
-            get(target, prop, reciver) {
-                if (['adiciona', 'apagar'].includes(prop) && typeof(target[prop]) == typeof(Function)) {
-                    return function() {
-                        Reflect.apply(target[prop], target, arguments);
-                        self._negociacoesView.update(target);
-                    };
-                }
-                return Reflect.get(target, prop, reciver);
-            }
-        });
-
-        /*Instanciando a classe NegociacoesView e uma MensagemView passando como parametro o 
-         *elemento que recebera o template string respectivo de cada uma.
-         */
-   	    this._mensagem = new Mensagem();
-        this._negociacoesView = new NegociacoesView($('#negociacoesView'));
-        this._mensagemView = new MensagemView($('#mensagemView'));
-        this._negociacoesView.update(this._listaNegociacoes);
-        this._mensagemView.update(this._mensagem);
+        this._mensagem = new Bind(new Mensagem(''),
+        	new MensagemView($('#mensagemView')),
+        	'texto');
     }
 
     adiciona(event) {
@@ -44,10 +30,8 @@ class NegociacaoController {
             );
 
             this._listaNegociacoes.adiciona(negociacao);
-            this._limpaFormulario();
-            this._negociacoesView.update(this._listaNegociacoes);
             this._mensagem.texto = "Negociação adicionada com sucesso.";
-            this._mensagemView.update(this._mensagem);
+            this._limpaFormulario();
         }
         /*Limpa os campos do formulario a cada nova negociaçâo incluida */
     _limpaFormulario() {
@@ -72,16 +56,16 @@ class NegociacaoController {
             .then(negociacoes => negociacoes
                 .reduce((arrayAchatado, array) => arrayAchatado.concat(array))
                 .forEach(negociacao => {
-                    this._listaNegociacoes.adiciona(negociacao);
-                    this._mensagem.texto = "Negociacoes importadas com sucesso.";
-          		    this._mensagemView.update(this._mensagem);
-                }))
-            .catch(erro => this._mensagemView.update(this._mensagem.texto = erro));
+                	this._listaNegociacoes.adiciona(negociacao);
+                	this._mensagem.texto = "Negociacoes importadas com sucesso."
+                	}
+                )
+            )
+            .catch(erro => this._mensagem.texto = erro);
     }
     apagar() {
 
         this._listaNegociacoes.apagar();
         this._mensagem.texto = "Negociacoes apagadas com sucesso.";
-        this._mensagemView.update(this._mensagem);
     }
 }
