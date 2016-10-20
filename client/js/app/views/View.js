@@ -1,3 +1,5 @@
+console.log("Carregou class  View()");
+
 class View {
     constructor(element) {
         this._element = element;

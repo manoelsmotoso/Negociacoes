@@ -1,3 +1,4 @@
+console.log("Carregou class Bind()");
 class Bind{
     constructor(model, view, ...props){
         let proxy = ProxyFactory.create(model, 

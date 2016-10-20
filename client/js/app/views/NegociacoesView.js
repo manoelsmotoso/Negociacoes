@@ -1,3 +1,5 @@
+console.log("Carregou class  NegociacoesView()");
+
 class NegociacoesView extends View {
     constructor(element) {
         super(element);

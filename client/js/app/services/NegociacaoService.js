@@ -1,3 +1,5 @@
+console.log("Carregou class NegociacaoService()");
+
 class NegociacaoService {
     constructor() {
         this._http = new HttpService();

@@ -1,3 +1,5 @@
+console.log("Carregou class  MensagemView()");
+
 class MensagemView extends View {
     constructor(element) {
         super(element);

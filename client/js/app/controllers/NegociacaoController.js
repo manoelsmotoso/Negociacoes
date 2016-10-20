@@ -1,3 +1,5 @@
+console.log("Carregou class  NegociacaoController()");
+
 class NegociacaoController {
     constructor() {
         /*Atribuindo a funcao do querySelecto a varuaval dolar*/
@@ -12,9 +14,18 @@ class NegociacaoController {
         	 'adiciona', 'apagar', 'ordena', 'inverteOrdem');
 
         /**/
-        this._mensagem = new Bind(new Mensagem(''),
+        this._mensagem = new Bind(new Mensagem(),
         	new MensagemView($('#mensagemView')),
         	'texto');
+
+        ConnectionFactory.getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.lista())
+            .then(negociacao => { negociacao.forEach(negociacao =>{
+                                    this._listaNegociacoes.adiciona(negociacao);
+                                    this._mensagem.texto = "Negociacoes importadas com sucesso";
+                                  })
+            }).catch(erro => this._mensagem.texto = erro);
     }
 
     adiciona(event) {
@@ -29,9 +40,19 @@ class NegociacaoController {
                 this._inputValor.value
             );
 
-            this._listaNegociacoes.adiciona(negociacao);
-            this._mensagem.texto = "Negociação adicionada com sucesso.";
-            this._limpaFormulario();
+            ConnectionFactory
+            .getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.adiciona(negociacao))
+            .then(msg => {
+                     this._listaNegociacoes.adiciona(negociacao);
+                     this._limpaFormulario();
+                     this._mensagem.texto = msg;
+                }
+            ).catch(erro => this._mensagem.texto = erro);
+
+
+            
         }
         
     /*Limpa os campos do formulario a cada nova negociaçâo incluida */

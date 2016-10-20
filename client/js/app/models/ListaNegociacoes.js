@@ -1,3 +1,5 @@
+console.log("Carregou class  ListaNegociacoes()");
+
 class ListaNegociacoes{
 	constructor(){
 		this._negociacoes=[];

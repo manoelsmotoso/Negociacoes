@@ -1,3 +1,5 @@
+console.log("Carregou class  ProxyFactory())");
+
 class ProxyFactory{
     static create(objeto, props, acao){
        return new Proxy(objeto, {

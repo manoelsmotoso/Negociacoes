@@ -1,64 +1,66 @@
+console.log("Carregou class ConnectionFactory()");
+let ConnectionFactory = (function(){
 
-alert("hsjd");
+const dbName = 'aluraframe',
+      version = 1,
+      stores = ['negociacoes'];
 
-var ConnectionFactory = (function() {
-	var dbName = 'aluraframe';
-	var version = 2;
-	var stores = ['negociacoes'];
-	var connection=null;
-	var close = null;
-	return class ConnectionFactory{
-		constrictor() {
-			throw new Error("Você não pode instanciar a classe ConnectionFactory pois seus metodos são staticos.");
-		}
+let connection = null;
+let close = null;
+return class ConnectionFactory {
+    constrictor() {
+        throw new Error("Você não pode instanciar a classe ConnectionFactory pois seus metodos são staticos.");
+    }
 
-		static getConnection() {
-			return new Promise((resolve, reject) => {
-			var openRequest = window.indexedDB.open(dbName, version);
+    static getConnection() {
+        return new Promise((resolve, reject) => {
 
-			openRequest.onupgradeneeded = e = > {
-			ConnectionFactory._createStores(e.target.result);
-			console.log('Object Store criado ou atualizado');
-			alert("Object store criado");
-		}
+            let openRequest = window.indexedDB.open(dbName, version);
 
-		openRequest.onsuccess = e = > {
-		if (!connection)
-		{
-			connection = e.target.result;
-			alert("Object store instanciado");
-			//close = connection.close.bind(connection);
-			//connection.close = () => throw new Error("Voce nao pode fechar a conexao diretamente");
+            openRequest.onupgradeneeded = e => {
+                ConnectionFactory._createStores(e.target.result);
+                console.log('ObjectStore [' + stores + '] criado ou atualizado');
+            };
 
-		}
-		resolve(connection);
+            openRequest.onsuccess = e => {
+                if (!connection) {
+                    connection = e.target.result;
+                    close = connection.close.bind(connection);
+                    connection.close = () => {
+                        throw new Error("Voce não pode fechar a conéxão diretamente");
+                    };
+                }
+                console.log('Conexão instanciada com sucesso')
+                resolve(connection);
 
-	}
+            };
 
-	openRequest.onerror = e = > {
-	   console.log(e.target.error);
-	   reject(e.target.error.name); 
-	}
+            openRequest.onerror = e => {
+                console.log(e.target.error);
+                reject(e.target.error.name);
+            };
 
 
-	static _createStores(connection) {
-		stores.forEach(store => {
-			if (connection.objectStoreNames.contains(store)) connection.deleteObjectStore(store);
+        });
+
+
+    }
+
+
+    static _createStores(connection) {
+        stores.forEach(store => {
+            if (connection.objectStoreNames.contains(store)) {
+                connection.deleteObjectStore(store);
+            }
             connection.createObjectStore(store, { autoIncrement: true });
+        });
+    }
 
-		})
 
+    static closeConnection() {
+        close();
+        connection = null;
 
-	}
-	
-	static closeConnection(){
-		close();
-		connection = null;
-	 }
-   }
- }
+    }
+}
 })();
-
-//ConnectionFactory.getConnection();
-
-

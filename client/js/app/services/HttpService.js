@@ -1,3 +1,4 @@
+console.log("Carregou class HttpService()");
 class HttpService {
     get(url) {
         return new Promise((resolve, reject) => {
