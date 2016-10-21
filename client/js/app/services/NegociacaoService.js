@@ -39,8 +39,8 @@ class NegociacaoService {
 	enviaNegociacao(negociacao){
 		return new Promise((resolve, reject) => {
 	    	this._http.post('http://localhost:3000/negociacoes',negociacao)
-	    .then()
-	    .catch(erro => reject("Não foi possivel obter as negociações da semana retrasada"));
+				.then(msg => resolve(msg))
+				.catch(erro => reject("Não foi possivel enviar a negociação"));
 	    });
 	}
 }

@@ -38,7 +38,7 @@ class NegociacaoDao {
                 if (atual) {
                     let dado = atual.value;
                     negociacoes.push(new Negociacao(dado._data, dado._quantidade, dado._valor));
-                	atual.continue();
+                    atual.continue();
                 } else {
                     resolve(negociacoes);
                 }
@@ -52,8 +52,8 @@ class NegociacaoDao {
 
         });
     }
-	
-	   apagarTodos() {
+
+    apagarTodos() {
         return new Promise((resolve, reject) => {
 
             let request = this._connection

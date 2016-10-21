@@ -39,6 +39,17 @@ class NegociacaoController {
                 this._inputQuantidade.value,
                 this._inputValor.value
             );
+           
+
+            
+            new NegociacaoService()
+                .enviaNegociacao({
+                    data: this._inputData.value,
+                    quantidade: this._inputQuantidade.value,
+                    valor: this._inputValor.value
+                })
+                .then(msg => this._mensagem.texto = msg)
+                .catch(erro => this._mensagem.texto = erro)
 
             ConnectionFactory
             .getConnection()
