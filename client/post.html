@@ -44,7 +44,7 @@
             };
             // usando nosso serviço. Veja que nem guardei em uma variável 
             new HttpService()
-                .post('/negociacoes', negociacao)
+                .post('http://localhost:3000/negociacoes', negociacao)
                 .then(() => {
                     inputData.value = '';
                     inputQuantidade.value = 1;

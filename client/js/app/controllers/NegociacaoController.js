@@ -77,19 +77,41 @@ class NegociacaoController {
             ])
             .then(negociacoes => negociacoes
                 .reduce((arrayAchatado, array) => arrayAchatado.concat(array))
-                .forEach(negociacao => {
-                	this._listaNegociacoes.adiciona(negociacao);
-                	this._mensagem.texto = "Negociacoes importadas com sucesso."
-                	}
+                 .filter(negociacao => 
+				     !this._listaNegociacoes
+					      .negociacoes
+						  .some(sameNegociacao => JSON.stringify(negociacao)==JSON.stringify(sameNegociacao))
+				).forEach(negociacao => {
+                	ConnectionFactory
+            .getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.adiciona(negociacao))
+            .then(msg => {
+                     this._listaNegociacoes.adiciona(negociacao);
+                     this._mensagem.texto = msg;
+                }
+            ).catch(erro => this._mensagem.texto = erro);
+
+}
                 )
             )
             .catch(erro => this._mensagem.texto = erro);
     }
 
     apagar() {
+		
+		ConnectionFactory
+            .getConnection()
+            .then(connection => new NegociacaoDao(connection))
+            .then(dao => dao.apagarTodos())
+            .then(msg => {
+                     this._listaNegociacoes.apagar();
+                     this._mensagem.texto = msg;
+                }
+            ).catch(erro => this._mensagem.texto = erro);
 
-        this._listaNegociacoes.apagar();
-        this._mensagem.texto = "Negociacoes apagadas com sucesso.";
+        
+       // this._mensagem.texto = "Negociacoes apagadas com sucesso.";
     }
 
     ordena(coluna) {
