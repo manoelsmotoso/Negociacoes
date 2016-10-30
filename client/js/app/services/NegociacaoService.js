@@ -6,7 +6,7 @@ class NegociacaoService {
     }
     negociacoesSemanaAtual() {
         return new Promise((resolve, reject) => {
-        	this._http.get('http://localhost:3000/negociacoes/semana')
+        	this._http.get('/negociacoes/semana')
         .then(negociacoes =>{
         		resolve(negociacoes.map(negociacao => new Negociacao(new Date(negociacao.data), negociacao.quantidade, negociacao.valor)))
         })
@@ -17,7 +17,7 @@ class NegociacaoService {
     //Semana Anterior
     negociacoesSemanaAnterior() {
 	    return new Promise((resolve, reject) => {
-	    	this._http.get('http://localhost:3000/negociacoes/anterior')
+	    	this._http.get('/negociacoes/anterior')
 	    .then(negociacoes =>{
 	    		resolve(negociacoes.map(negociacao => new Negociacao(new Date(negociacao.data), negociacao.quantidade, negociacao.valor)))
 	    })
@@ -28,7 +28,7 @@ class NegociacaoService {
     //Semana Retrazada
     negociacoesSemanaRetrasada() {
 	    return new Promise((resolve, reject) => {
-	    	this._http.get('http://localhost:3000/negociacoes/retrasada')
+	    	this._http.get('/negociacoes/retrasada')
 	    .then(negociacoes =>{
 	    		resolve(negociacoes.map(negociacao => new Negociacao(new Date(negociacao.data), negociacao.quantidade, negociacao.valor)))
 	    })
@@ -38,7 +38,7 @@ class NegociacaoService {
 	
 	enviaNegociacao(negociacao){
 		return new Promise((resolve, reject) => {
-	    	this._http.post('http://localhost:3000/negociacoes',negociacao)
+	    	this._http.post('/negociacoes',negociacao)
 				.then(msg => resolve(msg))
 				.catch(erro => reject("Não foi possivel enviar a negociação"));
 	    });
