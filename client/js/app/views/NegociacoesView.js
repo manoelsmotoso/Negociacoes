@@ -1,12 +1,10 @@
-console.log("Carregou class  NegociacoesView()");
-
 class NegociacoesView extends View {
     constructor(element) {
         super(element);
 
     }
     template(model) {
-            return `
+        return `
              <table class="table table-hover table-bordered">
                           <thead>
                               <tr class="active">
@@ -34,7 +32,6 @@ class NegociacoesView extends View {
                             </td>
                           </tfoot>
                   </table>
-                  `
-        ;
+                  `;
     }
 }
