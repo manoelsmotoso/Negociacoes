@@ -1,8 +1,5 @@
-console.log("Carregou class  NegociacaoController()");
-
 class NegociacaoController {
     constructor() {
-        /*Atribuindo a funcao do querySelecto a varuaval dolar*/
         let $ = document.querySelector.bind(document);
         this._inputData = $("#data");
         this._inputQuantidade = $("#quantidade");
@@ -29,19 +26,17 @@ class NegociacaoController {
     }
 
     adiciona(event) {
-            /*Desbilita o submit do botao Incluir*/
             event.preventDefault();
-            /*criando uma instacia da classe Negociacao e 
-             *passando os paremetros de uma nova negociacao
+            /**
+	     * criando uma instacia da classe Negociacao e 
+             * passando os paremetros de uma nova negociacao
              */
             let negociacao = new Negociacao(
                 DataHelper.textoParaData(this._inputData.value),
                 this._inputQuantidade.value,
                 this._inputValor.value
             );
-           
-
-            
+                   
             new NegociacaoService()
                 .enviaNegociacao({
                     data: this._inputData.value,
@@ -61,12 +56,10 @@ class NegociacaoController {
                      this._mensagem.texto = msg;
                 }
             ).catch(erro => this._mensagem.texto = erro);
-
-
-            
+	    
         }
         
-    /*Limpa os campos do formulario a cada nova negociaçâo incluida */
+    //Limpa os campos do formulario a cada nova negociaçâo incluida
     _limpaFormulario() {
 
         this._inputData.value = "";
@@ -78,8 +71,9 @@ class NegociacaoController {
     negociacoes() {
 
         let negociacaoService = new NegociacaoService();
-        /*Executa  Promises em sequencia, so executa a seguinte caso
-         *a anterior tenha sido finalizada 
+        /**
+	 * Executa  Promises em sequencia, so executa a seguinte caso
+         * a anterior tenha sido finalizada 
          */
         Promise.all([
                 negociacaoService.negociacoesSemanaAtual(),
