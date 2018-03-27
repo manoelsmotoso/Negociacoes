@@ -1,5 +1,6 @@
 class NegociacaoController {
     constructor() {
+
         this._inputData = $("#data")
         this._inputQuantidade = $("#quantidade")
         this._inputValor = $("#valor")
@@ -8,7 +9,6 @@ class NegociacaoController {
             new ListaNegociacoes(),
             new NegociacoesView($('#negociacoesView')), 'adiciona', 'apagar', 'ordena', 'inverteOrdem')
 
-        /**/
         this._mensagem = new Bind(new Mensagem(),
             new MensagemView($('#mensagemView')),
             'texto')
@@ -25,6 +25,7 @@ class NegociacaoController {
     }
 
     adiciona(event) {
+
         event.preventDefault()
         /**
          * criando uma instacia da classe Negociacao e 
@@ -69,6 +70,7 @@ class NegociacaoController {
     negociacoes() {
 
         let negociacaoService = new NegociacaoService()
+
         /**
          * Executa  Promises em sequencia e só executa a seguinte caso a anterior tenha sido resolvida com sucesso 
          */
@@ -108,18 +110,18 @@ class NegociacaoController {
                 this._listaNegociacoes.apagar()
                 this._mensagem.texto = msg
             }).catch(erro => this._mensagem.texto = erro)
-
-
-        // this._mensagem.texto = "Negociacoes apagadas com sucesso."
     }
 
     ordena(coluna) {
 
         if (this._ordemAtual == coluna) {
+
             this._listaNegociacoes.inverteOrdem()
         } else {
+
             this._listaNegociacoes.ordena((p, s) => p[coluna] - s[coluna])
         }
+
         this._ordemAtual = coluna
     }
 }

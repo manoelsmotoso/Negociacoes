@@ -1,28 +1,32 @@
-console.log("Carregou class  ListaNegociacoes()");
+class ListaNegociacoes {
+	constructor() {
 
-class ListaNegociacoes{
-	constructor(){
-		this._negociacoes=[];
-		
+		this._negociacoes = [];
+
 	}
-	adiciona(negociacao){
+
+	adiciona(negociacao) {
+
 		this._negociacoes.push(negociacao);
-		
 	}
-	get negociacoes(){
+
+	get negociacoes() {
+
 		return [].concat(this._negociacoes);
 	}
-	apagar(){
-		this._negociacoes =[];
-	}
 	
+	apagar() {
+
+		this._negociacoes = [];
+	}
+
 	ordena(criterio) {
 
-        this._negociacoes.sort(criterio);        
-    }
-    
-    inverteOrdem() {
+		this._negociacoes.sort(criterio);
+	}
 
-        this._negociacoes.reverse();
-    }    
+	inverteOrdem() {
+
+		this._negociacoes.reverse();
+	}
 }

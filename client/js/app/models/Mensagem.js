@@ -1,5 +1,3 @@
-console.log("Carregou class  Mensagem()");
-
 class Mensagem {
     
     constructor(texto='') {
